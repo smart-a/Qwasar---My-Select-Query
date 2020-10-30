@@ -2,9 +2,9 @@
 class MySelectQuery
     def initialize(csv_content)
         @hash_array = []  #instant varibale to store the array of hash
-        # file = File.open(filename_db) #open the csv file
-        # lines = csv_content.readlines.map(&:chomp) #read each line in the file
-        lines = csv_content.split(/\n/) 
+        file = File.open(csv_content) #open the csv file
+        lines = file.readlines.map(&:chomp) #read each line in the file
+        # lines = csv_content.split(/\n/) 
         keys = lines.shift.split(',') #remove the first line, split to create an array
         lines.each{|line| #loop through the remaining lines from the csv
             line_hash = {} #hash variable to split each line
