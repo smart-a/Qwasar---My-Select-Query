@@ -2,9 +2,9 @@
 class MySelectQuery
     def initialize(csv_content)
         @hash_array = []  #instant varibale to store the array of hash
-        file = File.open(csv_content) #open the csv file
-        lines = file.readlines.map(&:chomp) #read each line in the file
-        # lines = csv_content.split(/\n/) 
+        # file = File.open(csv_content) #open the csv file
+        # lines = file.readlines.map(&:chomp) #read each line in the file
+        lines = csv_content.split(/\n/) 
         keys = lines.shift.split(',') #remove the first line, split to create an array
         lines.each{|line| #loop through the remaining lines from the csv
             line_hash = {} #hash variable to split each line
@@ -20,12 +20,19 @@ class MySelectQuery
     #method that take 2 arguments: column_name and criteria. It will return an array of hash which match the value.
     def where(column_name, criteria)
         match_array = [] #array variable that store matched hash 
+        result = {}
         @hash_array.each{ |e_hash| #loop through the instant variable that stores the array of hash
             if(e_hash[column_name]==criteria) #test if the column_name (key) has the criteria (value)
-                match_array << e_hash #then push the matching hash to an array
+                result = e_hash #then push the matching hash to an array
             end
         }
-        return match_array #return the array of the matched hash
+
+        result.each{|k, val| match_array << val }
+        # match_array.map{|v| v}
+
+
+
+        return [match_array.join(',')] #return the array of the matched hash
     end
 end
 
